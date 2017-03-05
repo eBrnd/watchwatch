@@ -1,11 +1,12 @@
-#include <iostream>
 #include <chrono>
+#include <iostream>
 #include <sys/time.h>
 
 #include "anglefunctions.h"
+#include "graduations.h"
+#include "renderlist.h"
 #include "simplehand.h"
 #include "window.h"
-#include "renderlist.h"
 
 int main(int, char**) {
   try {
@@ -19,6 +20,10 @@ int main(int, char**) {
       return angleFunctions::secondAngle(lt, usec); };
     std::function<double()> minuteAngle = [&lt] () { return angleFunctions::minuteAngle(lt); };
     std::function<double()> hourAngle = [&lt] () { return angleFunctions::hourAngle(lt); };
+
+    list.add(std::shared_ptr<RenderObject>(new Graduations<400, 300, 240, 250, 60>()));
+    list.add(std::shared_ptr<RenderObject>(new Graduations<400, 300, 250, 270, 12>()));
+    list.add(std::shared_ptr<RenderObject>(new Graduations<400, 430, 62, 70, 60>()));
 
     list.add(std::shared_ptr<RenderObject>(new SimpleHand<400, 430, 60>(secondAngle)));
     list.add(std::shared_ptr<RenderObject>(new SimpleHand<400, 300, 230>(minuteAngle)));
