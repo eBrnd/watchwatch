@@ -19,15 +19,34 @@ class Window {
       if (!w)
         throw std::runtime_error("Can't open window");
 
-      surf = SDL_GetWindowSurface(w);
+      rend = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     }
 
     ~Window() {
+      SDL_DestroyRenderer(rend);
       SDL_DestroyWindow(w);
       SDL_Quit();
     }
 
+    Window(Window&) = delete;
+    Window(Window&&) = delete;
+    Window& operator=(Window&) = delete;
+    Window& operator=(Window&&) = delete;
+
+    SDL_Renderer* getRenderer() {
+      return rend;
+    }
+
+    void clear() {
+      SDL_SetRenderDrawColor(rend, 0, 0, 0, SDL_ALPHA_OPAQUE);
+      SDL_RenderClear(rend);
+    }
+
+    void present() {
+      SDL_RenderPresent(rend);
+    }
+
   private:
     SDL_Window* w;
-    SDL_Surface* surf;
+    SDL_Renderer* rend;
 };

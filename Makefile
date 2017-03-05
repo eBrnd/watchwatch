@@ -5,8 +5,8 @@ OBJS = $(patsubst %.cpp, %.o, ${SOURCES})
 DEPS = $(patsubst %.cpp, %.d, ${SOURCES})
 
 CXX = g++
-CXXFLAGS = -Wall -Wextra -lSDL2
-LDFLAGS = -lSDL2
+CXXFLAGS = -std=c++11 -Wall -Wextra -lSDL2 -g
+LDFLAGS = -lSDL2 -g
 
 .PHONY: all clean
 
