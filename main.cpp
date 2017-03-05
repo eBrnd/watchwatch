@@ -37,15 +37,8 @@ int main(int, char**) {
       auto now = std::chrono::system_clock::now();
       auto time = std::chrono::system_clock::to_time_t(now);
       lt = localtime(&time);
-      usec = (std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch())
-          - std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch())).count();
-
-      /*
-      struct timeval time;
-      gettimeofday(&time, NULL);
-      lt = localtime(&time.tv_sec);
-      usec = time.tv_usec;
-      */
+      usec = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()).count()
+        % 1000000;
 
       run = list.render(w.getRenderer());
 
