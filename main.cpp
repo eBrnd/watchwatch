@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <sys/time.h>
 
 #include "anglefunctions.h"
 #include "simplehand.h"
@@ -12,8 +13,10 @@ int main(int, char**) {
     RenderList list;
 
     std::tm* lt = NULL;
+    long usec = 0;
 
-    std::function<double()> secondAngle = [&lt] () { return angleFunctions::secondAngle(lt); };
+    std::function<double()> secondAngle = [&lt, &usec] () {
+      return angleFunctions::secondAngle(lt, usec); };
     std::function<double()> minuteAngle = [&lt] () { return angleFunctions::minuteAngle(lt); };
     std::function<double()> hourAngle = [&lt] () { return angleFunctions::hourAngle(lt); };
 
@@ -26,8 +29,10 @@ int main(int, char**) {
     while (run) {
       w.clear();
 
-      std::time_t time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-      lt = localtime(&time);
+      struct timeval time;
+      gettimeofday(&time, NULL);
+      lt = localtime(&time.tv_sec);
+      usec = time.tv_usec;
 
       run = list.render(w.getRenderer());
 
