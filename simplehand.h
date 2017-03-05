@@ -1,21 +1,17 @@
 #pragma once
 
-#include <chrono>
-#include <cmath>
+#include <functional>
 
 #include "renderobject.h"
 
 template <int CENTER_X, int CENTER_Y, int LENGTH>
-class SecondsHand : public RenderObject {
-  static constexpr auto pi = std::acos(-1);
-
+class SimpleHand : public RenderObject {
   public:
-    virtual bool render(SDL_Renderer* rend) {
-      std::time_t time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-      std::tm* lt = localtime(&time);
-      int seconds = lt->tm_sec;
+    SimpleHand(std::function<double()>& angle_f)
+      : angle_f(angle_f) { }
 
-      auto angle = pi + -2 * pi * (seconds / 60.);
+    virtual bool render(SDL_Renderer* rend) {
+      double angle = angle_f();
       int x = LENGTH * sin(angle);
       int y = LENGTH * cos(angle);
 
@@ -23,4 +19,7 @@ class SecondsHand : public RenderObject {
       SDL_RenderDrawLine(rend, CENTER_X, CENTER_Y, CENTER_X + x, CENTER_Y + y);
       return true;
     }
+
+  private:
+    std::function<double()> angle_f;
 };
