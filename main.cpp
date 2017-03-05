@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "hand.h"
+#include "secondshand.h"
+#include "minuteshand.h"
 #include "window.h"
 #include "renderlist.h"
 
@@ -9,7 +10,8 @@ int main(int, char**) {
     Window<800, 600> w;
     RenderList list;
 
-    list.add(std::shared_ptr<RenderObject>(new Hand<400, 300, 250>()));
+    list.add(std::shared_ptr<RenderObject>(new SecondsHand<400, 300, 250>()));
+    list.add(std::shared_ptr<RenderObject>(new MinutesHand<400, 300, 230>()));
 
     bool run = true;
     while (run) {

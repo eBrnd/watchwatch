@@ -5,10 +5,10 @@
 
 #include "renderobject.h"
 
-static const auto pi = std::acos(-1);
-
 template <int CENTER_X, int CENTER_Y, int LENGTH>
-class Hand : public RenderObject {
+class SecondsHand : public RenderObject {
+  static constexpr auto pi = std::acos(-1);
+
   public:
     virtual bool render(SDL_Renderer* rend) {
       std::time_t time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
