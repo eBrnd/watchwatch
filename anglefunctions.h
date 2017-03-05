@@ -7,7 +7,10 @@ static const auto pi = std::acos(-1);
 
 double secondAngle(std::tm* lt, long usec) {
   double secondAngle = pi + -2 * pi * (lt->tm_sec / 60.);
-  double subsecondAngle = (-2 * pi / 60.) * (usec / 1000000.);
+
+  double usec_sixths = floor(6 * usec / 1000000.) / 6;
+
+  double subsecondAngle = (-2 * pi / 60.) * (usec_sixths);
 
   return secondAngle + subsecondAngle;
 }

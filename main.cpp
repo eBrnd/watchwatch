@@ -20,7 +20,7 @@ int main(int, char**) {
     std::function<double()> minuteAngle = [&lt] () { return angleFunctions::minuteAngle(lt); };
     std::function<double()> hourAngle = [&lt] () { return angleFunctions::hourAngle(lt); };
 
-    list.add(std::shared_ptr<RenderObject>(new SimpleHand<400, 300, 250>(secondAngle)));
+    list.add(std::shared_ptr<RenderObject>(new SimpleHand<400, 430, 60>(secondAngle)));
     list.add(std::shared_ptr<RenderObject>(new SimpleHand<400, 300, 230>(minuteAngle)));
     list.add(std::shared_ptr<RenderObject>(
           new SimpleHand<400, 300, (int)(230 / 1.618)>(hourAngle)));
