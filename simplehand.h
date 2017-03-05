@@ -17,6 +17,7 @@ class SimpleHand : public RenderObject {
 
       SDL_SetRenderDrawColor(rend, 255, 255, 255, SDL_ALPHA_OPAQUE);
       SDL_RenderDrawLine(rend, CENTER_X, CENTER_Y, CENTER_X + x, CENTER_Y + y);
+
       return true;
     }
 
