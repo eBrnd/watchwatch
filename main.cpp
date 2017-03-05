@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "line.h"
+#include "hand.h"
 #include "window.h"
 #include "renderlist.h"
 
@@ -9,7 +9,7 @@ int main(int, char**) {
     Window<800, 600> w;
     RenderList list;
 
-    list.add(std::shared_ptr<RenderObject>(new Line()));
+    list.add(std::shared_ptr<RenderObject>(new Hand<400, 300, 250>()));
 
     bool run = true;
     while (run) {
